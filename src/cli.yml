@@ -7,37 +7,12 @@ args:
         short: u
         long: url
         value_name: FILE
-        help: The URL you want to test
+        help: The URL you want to test (Required)
         takes_value: true
         required: true
-    # - INPUT:
-    #     help: Sets the input file to use
-    #     required: true
-    #     index: 1
-    # - verbose:
-    #     short: v
-    #     multiple: true
-    #     help: Sets the level of verbosity
     - profile:
         short: p
         long: profile
         value_name: PROFILE
         help: The number of time you want test to run
         takes_value: true
-    # - url:
-    #     required: true
-    #     index: 1
-    #     short: u
-    #     long: url
-    #     multiple: false
-    #     help: The URL you want to test
-    #     takes_value: true
-# subcommands:
-#     - test:
-#         about: controls testing features
-#         version: "1.3"
-#         author: Someone E. <someone_else@other.com>
-#         args:
-#             - debug:
-#                 short: d
-#                 help: print debug information
