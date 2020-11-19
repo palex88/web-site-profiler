@@ -46,6 +46,10 @@ fn main() {
             let res = connect(url.clone(), path.clone());
             match res {
                 Ok(v) => {
+                    println!("Headers       :");
+                    for header in v.headers {
+                        println!("\t{}", header);
+                    }
                     println!("Body          :");
                     println!("{}", v.body);
                     println!("Total Time    : {}", v.total_time);
@@ -107,6 +111,7 @@ fn run(url: String, path: String, num_runs: i32) {
         }   
     }
 
+    // Prints out the results of all the runs, along with some general statistics.
     median.sort();
     println!("Fastest Time (NS)      : {}", fastest);
     println!("Slowest Time (NS)      : {}", slowest);
@@ -114,7 +119,11 @@ fn run(url: String, path: String, num_runs: i32) {
     println!("Median Time (NS)       : {}", median[median.len()/2]);
     println!("Smallest Response Size : {}", smallest);
     println!("Largest Response Size  : {}", largest);
-    println!("Successfull Attempts   : {}/{}", response_codes["200"], median.len());
+    if response_codes.contains_key("200") {
+        println!("Successfull Attempts   : {}/{}", response_codes["200"], median.len());
+    } else {
+        println!("Successfull Attempts   : 0/{}", median.len());
+    }
     println!("Http Codes Present     :");
     for (code, num_times) in &response_codes {
         println!("\tCode: {}, Occurances: {}", code, num_times);
@@ -158,6 +167,7 @@ fn connect(url: String, path: String) -> Result<HttpReturn> {
     let url = format!("{}:80", url);
     let mut stream = TcpStream::connect(url.clone())?;
 
+    // Creates the HTTP Request
     let mut request_data = String::new();
     request_data.push_str(&format!("GET /{} HTTP/1.0", path));
     request_data.push_str("\r\n");
@@ -167,6 +177,8 @@ fn connect(url: String, path: String) -> Result<HttpReturn> {
     request_data.push_str("\r\n");
     request_data.push_str("\r\n");
 
+    // Writes the request and reads back the response.
+    // This section is timed, but parsing the response is not.
     let _ = stream.write_all(request_data.as_bytes())?;
     let mut buf = String::new();
     let _ = stream.read_to_string(&mut buf)?;
