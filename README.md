@@ -1,4 +1,4 @@
-# Cloudflare 2020 Systems Assignment
+# Web Site Profiler
 
 ## Build Instructions
 
@@ -15,7 +15,7 @@ Examples:
 
 ## Findings
 
-Since I used Rust's low level TCP socket stream, instead of a third party HTTP package, my tool was unable to handle HTTPS requests. It seemed like an unfeaable amount of work to implement SSL/TLS connection on top of my tool for a project this size. Since the assignment specifically says not to use a external package, I opted to keep the implementation this way.
+Since I used Rust's low level TCP socket stream, instead of a third party HTTP package, this tool is unable to handle HTTPS requests. It seemed like an unfeaable amount of work to implement SSL/TLS connection on top of my tool for a project this size. Since the assignment specifically says not to use a external package, I opted to keep the implementation this way.
 
 Because of this, any HTTP request to a site that required HTTPS would give a `301 Moved Permanently` response code that directs to the HTTPS version of the site. Any call to a HTTPS (`https://www.cloudflare.com/` instead of `www.cloudflare.com/`) would result in the TCPStream throwing an error.
 
