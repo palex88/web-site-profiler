@@ -1,5 +1,7 @@
 # Web Site Profiler
 
+This is CLI used to profile websites and measure how long requests take and how large returned requests are.
+
 ## Build Instructions
 
 This CLI tool uses cargo to build, and has additional command line args parsed by [clap](https://crates.io/crates/clap).
@@ -10,8 +12,8 @@ There is an additonal --profile / -p arg that can be passed that will allow for 
 Functionality is a bit different when there is no profile set.
 
 Examples:
-    cargo run -- -u 2020-general-assignment.palex.workers.dev -p 10
-    cargo run -- -u 2020-general-assignment.palex.workers.dev
+- cargo run -- -u 2020-general-assignment.palex.workers.dev -p 10
+- cargo run -- -u 2020-general-assignment.palex.workers.dev
 
 ## Findings
 
